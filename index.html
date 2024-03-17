@@ -142,8 +142,8 @@
 
         // Add event listeners for keyboard events
         document.addEventListener('keydown', function(event) {
-            int w = document.getElementById('word').value;
-            int ml = document.getElementById('minLen').value;
+            let w = document.getElementById('word').value;
+            let ml = document.getElementById('minLen').value;
             switch(event.key) {
                 case 'ArrowLeft':
                     document.getElementById('word').value = (w <= 1 ? 1 : w - 1);
