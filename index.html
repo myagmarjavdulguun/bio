@@ -142,21 +142,23 @@
 
         // Add event listeners for keyboard events
         document.addEventListener('keydown', function(event) {
+            int w = document.getElementById('word').value;
+            int ml = document.getElementById('minLen').value;
             switch(event.key) {
                 case 'ArrowLeft':
-                    document.getElementById('word').value = parseInt(document.getElementById('word').value) - 1;
+                    document.getElementById('word').value = (w <= 1 ? 1 : w - 1);
                     performAlignment();
                     break;
                 case 'ArrowRight':
-                    document.getElementById('word').value = parseInt(document.getElementById('word').value) + 1;
+                    document.getElementById('word').value = w + 1;
                     performAlignment();
                     break;
                 case 'ArrowUp':
-                    document.getElementById('minLen').value = parseInt(document.getElementById('minLen').value) + 1;
+                    document.getElementById('minLen').value = (ml <= 1 ? 1 : ml - 1);
                     performAlignment();
                     break;
                 case 'ArrowDown':
-                    document.getElementById('minLen').value = parseInt(document.getElementById('minLen').value) - 1;
+                    document.getElementById('minLen').value = ml + 1;
                     performAlignment();
                     break;
             }
