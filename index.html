@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sequence Alignment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            table-layout: fixed;
+            font-size: 5px;
+        }
+        th, td {
+            padding: 0;
+            border: 1px solid #ddd;
+            width: 50px;
+            height: 50px;
+            font-size: 30px;
+        }
+        input[type="text"] {
+            padding: 5px;
+            margin: 5px;
+        }
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .green {
+            background-color: green;
+            color: white;
+        }
+        .yellow {
+            background-color: yellow;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sequence Alignment</h1>
+    <label for="s1">Enter s1:</label>
+    <input type="text" id="s1" placeholder="Enter string s1">
+    <br>
+    <label for="s2">Enter s2:</label>
+    <input type="text" id="s2" placeholder="Enter string s2">
+    <br>
+    <label for="word">Enter word size:</label>
+    <input type="text" id="word" placeholder="Enter word size" value="3">
+    <br>
+    <label for="minLen">Enter minimum length:</label>
+    <input type="text" id="minLen" placeholder="Enter minimum length" value="1">
+    <br>
+    <button onclick="performAlignment()">Align</button>
+    <br>
+    <div id="output"></div>
+
+    <script>
+        function comp(a, b) {
+            let len = a.length;
+            let n = 0;
+            for (let i = 0; i < len; i++) {
+                if (a[i] === b[i]) {
+                    n++;
+                }
+            }
+            if (n === len) {
+                return 'green';
+            } else if (n > len / 2) {
+                return 'yellow';
+            } else {
+                return '';
+            }
+        }
+
+        function performAlignment() {
+            let s1 = document.getElementById("s1").value;
+            let s2 = document.getElementById("s2").value;
+            let word = parseInt(document.getElementById("word").value);
+            let minLen = parseInt(document.getElementById("minLen").value);
+
+            let l1 = s1.length;
+            let l2 = s2.length;
+            let t = Array.from(Array(l1), () => Array(l2).fill(''));
+
+            for (let i = 0; i < l1 - word + 1; i++) {
+                for (let j = 0; j < l2 - word + 1; j++) {
+                    t[i + Math.floor(word / 2)][j + Math.floor(word / 2)] = comp(s1.substring(i, i + word), s2.substring(j, j + word));
+                }
+            }
+
+            let c = Array.from(Array(l1), () => Array(l2).fill('u'));
+            for (let i = 0; i < l1; i++) {
+                for (let j = 0; j < l2; j++) {
+                    if (t[i][j] !== '' && c[i][j] === 'u') {
+                        let ii = i, jj = j, count = 0;
+                        while (ii < l1 && jj < l2 && t[ii][jj] !== '') {
+                            count++;
+                            c[ii][jj] = 'c';
+                            ii++;
+                            jj++;
+                        }
+                        if (count < minLen) {
+                            ii = i;
+                            jj = j;
+                            while (ii < l1 && jj < l2 && t[ii][jj] !== '') {
+                                t[ii][jj] = '';
+                                ii++;
+                                jj++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            let output = '<table><tr><th></th>';
+            for (let j = 0; j < l2; j++) {
+                output += `<th>${s2[j]}</th>`;
+            }
+            output += '</tr>';
+
+            for (let i = 0; i < l1; i++) {
+                output += `<tr><th>${s1[i]}</th>`;
+                for (let j = 0; j < l2; j++) {
+                    let cellClass = t[i][j];
+                    output += `<td class="${cellClass}"></td>`;
+                }
+                output += '</tr>';
+            }
+            output += '</table>';
+
+            document.getElementById("output").innerHTML = output;
+        }
+
+        // Add event listeners for keyboard events
+        document.addEventListener('keydown', function(event) {
+            switch(event.key) {
+                case 'ArrowLeft':
+                    document.getElementById('word').value = parseInt(document.getElementById('word').value) - 1;
+                    performAlignment();
+                    break;
+                case 'ArrowRight':
+                    document.getElementById('word').value = parseInt(document.getElementById('word').value) + 1;
+                    performAlignment();
+                    break;
+                case 'ArrowUp':
+                    document.getElementById('minLen').value = parseInt(document.getElementById('minLen').value) + 1;
+                    performAlignment();
+                    break;
+                case 'ArrowDown':
+                    document.getElementById('minLen').value = parseInt(document.getElementById('minLen').value) - 1;
+                    performAlignment();
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
