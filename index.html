@@ -139,7 +139,6 @@
         }
 
         document.addEventListener('keydown', function(event) {
-            console.log(event.key, typeof(event.key));
             if (event.key === '4') {
                 document.getElementById('word').value = Math.max(1, parseInt(document.getElementById('word').value) - 1);
                 performAlignment();
