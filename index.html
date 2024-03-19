@@ -139,16 +139,17 @@
         }
 
         document.addEventListener('keydown', function(event) {
-            if (event.key === 'a') {
+            console.log(event.key, typeof(event.key));
+            if (event.key === '4') {
                 document.getElementById('word').value = Math.max(1, parseInt(document.getElementById('word').value) - 1);
                 performAlignment();
-            } else if (event.key === 'd') {
+            } else if (event.key === '6') {
                 document.getElementById('word').value = parseInt(document.getElementById('word').value) + 1;
                 performAlignment();
-            } else if (event.key === 'w') {
+            } else if (event.key === '8') {
                 document.getElementById('minLen').value = parseInt(document.getElementById('minLen').value) + 1;
                 performAlignment();
-            } else if (event.key === 's') {
+            } else if (event.key === '2') {
                 document.getElementById('minLen').value = Math.max(1, parseInt(document.getElementById('minLen').value) - 1);
                 performAlignment();
             }
