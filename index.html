@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sequence Alignment</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -46,7 +45,6 @@
     </style>
 </head>
 <body>
-    <h1>Sequence Alignment</h1>
     <label for="s1">Enter s1:</label>
     <input type="text" id="s1" placeholder="Enter string s1">
     <br>
@@ -140,18 +138,17 @@
             document.getElementById("output").innerHTML = output;
         }
 
-        // Add event listeners for keyboard events
         document.addEventListener('keydown', function(event) {
-            if (event.key === 'ArrowLeft') {
+            if (event.key === 'a') {
                 document.getElementById('word').value = Math.max(1, parseInt(document.getElementById('word').value) - 1);
                 performAlignment();
-            } else if (event.key === 'ArrowRight') {
+            } else if (event.key === 'd') {
                 document.getElementById('word').value = parseInt(document.getElementById('word').value) + 1;
                 performAlignment();
-            } else if (event.key === 'ArrowUp') {
+            } else if (event.key === 'w') {
                 document.getElementById('minLen').value = parseInt(document.getElementById('minLen').value) + 1;
                 performAlignment();
-            } else if (event.key === 'ArrowDown') {
+            } else if (event.key === 's') {
                 document.getElementById('minLen').value = Math.max(1, parseInt(document.getElementById('minLen').value) - 1);
                 performAlignment();
             }
