@@ -2,6 +2,13 @@
 <html>
 <head>
     <style>
+    	#text {
+        	position: fixed;
+            right: 0;
+            top: 0;
+            padding: 80px;
+            font-size: 30px;
+        }
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
@@ -52,7 +59,7 @@
     <label for="s2">Enter s2:</label>
     <input type="text" id="s2" placeholder="Enter string s2">
     <br>
-    <label for="word">Enter word size:</label>
+    <label for="word">Comparison size:</label>
     <input type="text" id="word" placeholder="Enter word size" value="3">
     <br>
     <label for="minLen">Enter minimum length:</label>
@@ -61,6 +68,7 @@
     <button onclick="performAlignment()">Align</button>
     <br>
     <div id="output"></div>
+    <div id="text"></div>
 
     <script>
         function comp(a, b) {
@@ -130,13 +138,18 @@
                 output += `<tr><th>${s1[i]}</th>`;
                 for (let j = 0; j < l2; j++) {
                     let cellClass = t[i][j];
-                    output += `<td class="${cellClass}"></td>`;
+					output += `<td class="${cellClass}" onclick="showStr(${i}, ${j}, '${s1}', '${s2}', '${word}')"></td>`;
                 }
                 output += '</tr>';
             }
             output += '</table>';
 
             document.getElementById("output").innerHTML = output;
+        }
+        
+        let showStr = (i, j, s1, s2, word) => {
+        	let text = document.getElementById("text");
+            text.innerHTML = 's1: ' + s1.substr(i - word/2 + word%2, word) + '<br>s2: ' + s2.substr(j - word/2 + word%2, word);
         }
 
         document.addEventListener('keydown', function(event) {
