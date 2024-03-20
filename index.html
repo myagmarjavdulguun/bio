@@ -36,11 +36,12 @@
         }
         .green {
             background-color: green;
-            color: white;
         }
         .yellow {
             background-color: yellow;
-            color: black;
+        }
+        .gray {
+            background-color: gray;
         }
     </style>
 </head>
@@ -110,7 +111,7 @@
                             ii = i;
                             jj = j;
                             while (ii < l1 && jj < l2 && t[ii][jj] !== '') {
-                                t[ii][jj] = '';
+                                t[ii][jj] = 'gray';
                                 ii++;
                                 jj++;
                             }
