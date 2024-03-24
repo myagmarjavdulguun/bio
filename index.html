@@ -149,8 +149,12 @@
         
         let showStr = (i, j, s1, s2, word) => {
         	let text = document.getElementById("text");
-            text.innerHTML = 's1: ' + s1.substr(i - word/2 + word%2, word) + '<br>s2: ' + s2.substr(j - word/2 + word%2, word);
-        }
+            if ((i - word/2 + word%2 >= 0) && (i + word/2 - (word-1)%2 < s1.length) && (j - word/2 + word%2 >= 0) && (j + word/2 - (word-1)%2 < s2.length)) {
+            	text.innerHTML = `s1: ${s1.substr(i - word/2 + word%2, word)}<br>s2: ${s2.substr(j - word/2 + word%2, word)}`;
+            } else {
+            	text.innerHTML = '';
+            }
+        };
 
         document.addEventListener('keydown', function(event) {
             if (event.key === '4') {
