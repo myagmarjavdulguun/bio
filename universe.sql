@@ -129,7 +129,7 @@ CREATE TABLE public.planet (
     description text,
     is_in_solar_system boolean,
     star_id integer,
-    planet_type_id integer
+    planet_types_id integer
 );
 
 
@@ -162,8 +162,9 @@ ALTER SEQUENCE public.planet_id_seq OWNED BY public.planet.planet_id;
 --
 
 CREATE TABLE public.planet_types (
-    planet_type_id integer NOT NULL,
-    planet_type character varying(30) NOT NULL
+    planet_types_id integer NOT NULL,
+    planet_type character varying(30) NOT NULL,
+    name character varying(30)
 );
 
 
@@ -188,7 +189,7 @@ ALTER TABLE public.planet_types_id_seq OWNER TO freecodecamp;
 -- Name: planet_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: freecodecamp
 --
 
-ALTER SEQUENCE public.planet_types_id_seq OWNED BY public.planet_types.planet_type_id;
+ALTER SEQUENCE public.planet_types_id_seq OWNED BY public.planet_types.planet_types_id;
 
 
 --
@@ -250,10 +251,10 @@ ALTER TABLE ONLY public.planet ALTER COLUMN planet_id SET DEFAULT nextval('publi
 
 
 --
--- Name: planet_types planet_type_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
+-- Name: planet_types planet_types_id; Type: DEFAULT; Schema: public; Owner: freecodecamp
 --
 
-ALTER TABLE ONLY public.planet_types ALTER COLUMN planet_type_id SET DEFAULT nextval('public.planet_types_id_seq'::regclass);
+ALTER TABLE ONLY public.planet_types ALTER COLUMN planet_types_id SET DEFAULT nextval('public.planet_types_id_seq'::regclass);
 
 
 --
@@ -308,24 +309,24 @@ INSERT INTO public.moon VALUES (20, 'moon20', NULL, NULL, NULL, 12);
 INSERT INTO public.planet VALUES (2, 'planet2', 40, 'also a lovley planet', NULL, 2, 2);
 INSERT INTO public.planet VALUES (3, 'planet3', 50, 'ordinary planet', NULL, 3, 3);
 INSERT INTO public.planet VALUES (1, 'planet1', 30, 'lovely planet', true, 1, 1);
-INSERT INTO public.planet VALUES (4, 'planet4', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.planet VALUES (5, 'planet5', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.planet VALUES (6, 'planet6', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.planet VALUES (7, 'planet7', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.planet VALUES (8, 'planet8', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.planet VALUES (9, 'planet9', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.planet VALUES (10, 'planet10', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.planet VALUES (11, 'planet11', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO public.planet VALUES (12, 'planet12', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO public.planet VALUES (4, 'planet4', NULL, NULL, NULL, 3, NULL);
+INSERT INTO public.planet VALUES (5, 'planet5', NULL, NULL, NULL, 3, NULL);
+INSERT INTO public.planet VALUES (6, 'planet6', NULL, NULL, NULL, 3, NULL);
+INSERT INTO public.planet VALUES (7, 'planet7', NULL, NULL, NULL, 3, NULL);
+INSERT INTO public.planet VALUES (8, 'planet8', NULL, NULL, NULL, 3, NULL);
+INSERT INTO public.planet VALUES (9, 'planet9', NULL, NULL, NULL, 3, NULL);
+INSERT INTO public.planet VALUES (10, 'planet10', NULL, NULL, NULL, 3, NULL);
+INSERT INTO public.planet VALUES (11, 'planet11', NULL, NULL, NULL, 3, NULL);
+INSERT INTO public.planet VALUES (12, 'planet12', NULL, NULL, NULL, 3, NULL);
 
 
 --
 -- Data for Name: planet_types; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
-INSERT INTO public.planet_types VALUES (1, 'Hot');
-INSERT INTO public.planet_types VALUES (2, 'Normal');
-INSERT INTO public.planet_types VALUES (3, 'Cold');
+INSERT INTO public.planet_types VALUES (1, 'Hot', NULL);
+INSERT INTO public.planet_types VALUES (2, 'Normal', NULL);
+INSERT INTO public.planet_types VALUES (3, 'Cold', NULL);
 
 
 --
@@ -428,7 +429,7 @@ ALTER TABLE ONLY public.planet
 --
 
 ALTER TABLE ONLY public.planet_types
-    ADD CONSTRAINT planet_types_pkey PRIMARY KEY (planet_type_id);
+    ADD CONSTRAINT planet_types_pkey PRIMARY KEY (planet_types_id);
 
 
 --
@@ -468,7 +469,7 @@ ALTER TABLE ONLY public.moon
 --
 
 ALTER TABLE ONLY public.planet
-    ADD CONSTRAINT planet_planet_type_fkey FOREIGN KEY (planet_type_id) REFERENCES public.planet_types(planet_type_id);
+    ADD CONSTRAINT planet_planet_type_fkey FOREIGN KEY (planet_types_id) REFERENCES public.planet_types(planet_types_id);
 
 
 --
